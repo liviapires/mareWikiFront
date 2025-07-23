@@ -1,0 +1,13 @@
+h1 {
+    font-family: var(--bebas);
+    font-size: 2rem;
+}
+
+h1 span {
+    color: var(--secondary);
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
