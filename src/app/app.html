@@ -1,0 +1,14 @@
+<mat-toolbar>
+    <button mat-button (click)="collapsed.set(!collapsed())">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <app-logo />
+</mat-toolbar>
+<mat-sidenav-container>
+    <mat-sidenav opened mode="side" [style.width]="sidenavWidth()">
+        <app-sidenav />
+    </mat-sidenav>
+    <mat-sidenav-content [style.margin-left]="sidenavWidth()">
+        <router-outlet />
+    </mat-sidenav-content>
+</mat-sidenav-container>

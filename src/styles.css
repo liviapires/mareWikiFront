@@ -1,0 +1,37 @@
+/* You can add global styles to this file, and also import other style files */
+:root {
+    --primary: #15479e;
+    --secondary: #66ffd9;
+    --tertiary: #f09;
+    --dark: #030f21;
+    --light: #fefefe;
+
+    --bebas: 'Bebas Neue', sans-serif;
+    --lato: 'Lato', sans-serif;
+
+    --nav-height: 3.5rem;
+    --sidebar-width: 22rem;
+}
+
+html, body { 
+    height: 100%; 
+}
+
+body { 
+    margin: 0; 
+    font-family: var(--lato);
+}
+
+button {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--bebas);
+}
+
+p {
+    font-family: var(--lato);
+}

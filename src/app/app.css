@@ -1,0 +1,31 @@
+mat-toolbar {
+    background-color: var(--primary);
+    color: var(--light);
+    height: 4.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+mat-icon {
+    color: var(--light);
+    scale: 2.1;
+}
+
+mat-sidenav {
+    background-color: var(--primary);
+    border-radius: 0;
+}
+
+mat-sidenav-container {
+    height: calc(100vh - 4.5rem);
+}
+
+mat-sidenav-content {
+    padding: 1rem;
+    background-color: var(--light);
+}
+
+mat-sidenav, mat-sidenav-content {
+    transition: width 1s ease-in-out;
+}
