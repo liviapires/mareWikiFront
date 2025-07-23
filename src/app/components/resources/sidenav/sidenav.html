@@ -1,0 +1,5 @@
+<mat-nav-list>
+    @for (item of menuItems(); track item.route) {
+        <app-menu-item [item]="item" />
+    }
+</mat-nav-list>
