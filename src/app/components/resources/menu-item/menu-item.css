@@ -1,0 +1,48 @@
+:host * {
+    transition: all 0.3s ease-in-out;
+}
+
+span {
+    color: var(--light);
+    font-family: var(--bebas);
+    font-size: 1.5rem;
+    letter-spacing: 0.3rem;
+}
+
+a mat-icon {
+    color: var(--light);
+}
+
+a:hover {
+    color: var(--light);
+    border-radius: 0;
+    transition: background 0.3s ease;
+}
+
+.sub-menu-item::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 0;
+    height: 0.125rem;
+    background: var(--secondary);
+    transition: width 1s ease, right 0.4s ease;
+}
+
+.sub-menu-item:hover::after {
+    width: 100%;
+    left: 0;
+    right: auto;
+    border-radius: 0 !important;
+}
+
+.selected-menu-item {
+    border-radius: 0 !important;
+    transition: all 0.3s ease-in-out;
+}
+
+.sub-menu-item {
+    background-color: rgba(174, 168, 255, 0.1);
+    border-radius: 0;
+}
