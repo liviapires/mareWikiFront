@@ -26,7 +26,7 @@ export class App {
 
   protected readonly title = signal('front');
 
-  collapsed = signal(false);
+  collapsed = signal(true);
 
   sidenavWidth = computed(() => this.collapsed() ? "3.75rem" : "22rem");
 
