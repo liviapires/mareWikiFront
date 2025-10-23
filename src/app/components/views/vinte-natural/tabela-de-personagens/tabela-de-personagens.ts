@@ -10,31 +10,30 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatCardModule } from '@angular/material/card';
 
-export interface PeriodicElement {
+export interface Character {
   name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-  type: string;
+  ancestry: string;
+  pronouns: string;
+  class: string;
+  status: string;
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H', type: 'Nonmetal' },
-  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He', type: 'Noble Gas' },
-  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li', type: 'Alkali Metal' },
-  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be', type: 'Alkaline Earth Metal' },
-  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B', type: 'Metalloid' },
-  { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C', type: 'Nonmetal' },
-  { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N', type: 'Nonmetal' },
-  { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O', type: 'Nonmetal' },
-  { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F', type: 'Nonmetal' },
-  { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne', type: 'Noble Gas' },
-  { position: 11, name: 'Sodium', weight: 22.9897, symbol: 'Na', type: 'Alkali Metal' },
-  { position: 12, name: 'Magnesium', weight: 24.305, symbol: 'Mg', type: 'Alkaline Earth Metal' },
-  { position: 13, name: 'Aluminum', weight: 26.9815, symbol: 'Al', type: 'Post-transition Metal' },
-  { position: 14, name: 'Silicon', weight: 28.0855, symbol: 'Si', type: 'Metalloid' },
-  { position: 15, name: 'Phosphorus', weight: 30.9738, symbol: 'P', type: 'Nonmetal' },
+const ELEMENT_DATA: Character[] = [
+  { name: 'Aria Windrider', ancestry: 'Elf', pronouns: 'She/Her', class: 'Ranger', status: 'Alive' },
+  { name: 'Borin Stonehelm', ancestry: 'Dwarf', pronouns: 'He/Him', class: 'Warrior', status: 'Dead' },
+  { name: 'Liora Moonshadow', ancestry: 'Human', pronouns: 'They/Them', class: 'Mage', status: 'Alive' },
+  { name: 'Thalor Brightblade', ancestry: 'Elf', pronouns: 'He/Him', class: 'Paladin', status: 'Alive' },
+  { name: 'Mira Swiftfoot', ancestry: 'Halfling', pronouns: 'She/Her', class: 'Rogue', status: 'Dead' },
+  { name: 'Drogath Ironfist', ancestry: 'Orc', pronouns: 'He/Him', class: 'Berserker', status: 'Alive' },
+  { name: 'Elara Dawnstar', ancestry: 'Human', pronouns: 'She/Her', class: 'Cleric', status: 'Alive' },
+  { name: 'Gorak Bloodfang', ancestry: 'Orc', pronouns: 'He/Him', class: 'Shaman', status: 'Dead' },
+  { name: 'Sylva Leafwhisper', ancestry: 'Elf', pronouns: 'They/Them', class: 'Druid', status: 'Unknown' },
+  { name: 'Thorin Oakenshield', ancestry: 'Dwarf', pronouns: 'He/Him', class: 'Warrior', status: 'Alive' },
+  { name: 'Fiona Lightbringer', ancestry: 'Human', pronouns: 'She/Her', class: 'Paladin', status: 'Dead' },
+  { name: 'Kara Nightshade', ancestry: 'Halfling', pronouns: 'They/Them', class: 'Rogue', status: 'Alive' },
+  { name: 'Zara Stormcaller', ancestry: 'Elf', pronouns: 'She/Her', class: 'Mage', status: 'Unknown' },
 ];
+
 @Component({
   selector: 'app-tabela-de-personagens',
   imports: [
@@ -54,15 +53,15 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 
 export class TabelaDePersonagens implements AfterViewInit {
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol', 'type'];
+  displayedColumns: string[] = ['name', 'ancestry', 'pronouns', 'class', 'status', 'actions'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
 
-  selectedTypes: string[] = [];
+  selectedAncestry: string[] = [];
   globalFilter: string = '';
 
-  get types(): string[] {
-    const typesSet = new Set(ELEMENT_DATA.map(element => element.type));
-    return Array.from(typesSet).sort();
+  get ancestries(): string[] {
+    const ancestrySet = new Set(ELEMENT_DATA.map(element => element.ancestry));
+    return Array.from(ancestrySet).sort();
   }
 
   @ViewChild(MatSort) sort!: MatSort;
@@ -72,20 +71,20 @@ export class TabelaDePersonagens implements AfterViewInit {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
 
-    this.dataSource.filterPredicate = (data: PeriodicElement, filter: string): boolean => {
+    this.dataSource.filterPredicate = (data: Character, filter: string): boolean => {
       const parsedFilter = JSON.parse(filter);
       const filterText = parsedFilter.global.toLowerCase();
 
       const matchesText =
         data.name.toLowerCase().includes(filterText) ||
-        data.symbol.toLowerCase().includes(filterText) ||
-        data.type.toLowerCase().includes(filterText) ||
-        data.position.toString().includes(filterText) ||
-        data.weight.toString().includes(filterText);
+        data.ancestry.toLowerCase().includes(filterText) ||
+        data.pronouns.toLowerCase().includes(filterText) ||
+        data.class.toLowerCase().includes(filterText) ||
+        data.status.toLowerCase().includes(filterText);
 
-      const matchesType = parsedFilter.types.length === 0 || parsedFilter.types.includes(data.type);
+      const matchesAncestry = parsedFilter.ancestries.length === 0 || parsedFilter.ancestries.includes(data.ancestry);
 
-      return matchesText && matchesType;
+      return matchesText && matchesAncestry;
     };
   }
 
@@ -94,12 +93,12 @@ export class TabelaDePersonagens implements AfterViewInit {
     this.applyCombinedFilter();
   }
 
-  filterByTypes() {
+  filterByAncestries() {
     this.applyCombinedFilter();
   }
 
-  remove(type: string) {
-    this.selectedTypes = this.selectedTypes.filter(t => t !== type);
+  remove(ancestry: string) {
+    this.selectedAncestry = this.selectedAncestry.filter(t => t !== ancestry);
     this.applyCombinedFilter();
   }
 
@@ -107,7 +106,7 @@ export class TabelaDePersonagens implements AfterViewInit {
   applyCombinedFilter() {
     const filter = {
       global: this.globalFilter.trim().toLowerCase(),
-      types: this.selectedTypes
+      ancestries: this.selectedAncestry
     };
 
     this.dataSource.filter = JSON.stringify(filter);
@@ -115,5 +114,20 @@ export class TabelaDePersonagens implements AfterViewInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  addCharacter() {
+    // Implement navigation to character creation
+    alert('Navigating to add character page');
+  }
+
+  editCharacter(character: Character) {
+    // Implement navigation to character detail edit
+    alert(`Editing character: ${character.name}`);
+  }
+
+  deleteCharacter(character: Character) {
+    // Implement character deletion logic
+    alert(`Deleting character: ${character.name}`);
   }
 }
